@@ -17,10 +17,10 @@ cd scribble-demo
 
 mvn jetty:run
 
-To see the demo, navigate to http://localhost:8080/
+To see the demo, navigate to http://localhost:8080/ .
 
 ## License & Author
 
 Add-on is distributed under Apache License 2.0. For license terms, see LICENSE.txt.
 
-ScribblePane was written by Enver Haase <enver@vaadin.com> as an exercise.
+ScribblePane was written by Enver Haase in 2017, as an exercise.
