@@ -5,7 +5,7 @@ It lets you scribble or sketch a very simple drawing using the mouse, and the re
 
 ## Download release
 
-Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to http://vaadin.com/addon/scribblepane
+Official releases of this add-on are available at Vaadin Directory. For Maven instructions, download and reviews, go to http://vaadin.com/addon/scribblepane-add-on .
 
 ## Building and running demo
 
