@@ -7,11 +7,12 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.server.StreamResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.Alignment;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
+
+import java.util.Date;
 
 @Theme("demo")
 @Title("ScribblePane Add-on Demo")
@@ -26,18 +27,44 @@ public class DemoUI extends UI
 
     @Override
     protected void init(VaadinRequest request) {
+        final VerticalLayout layout = new VerticalLayout();
 
-        // Initialize our new UI component
-        final ScribblePane component = new ScribblePane();
+        HorizontalLayout hl = new HorizontalLayout();
+
+        // Initialize our new UI scribblePane
+        final ScribblePane scribblePane = new ScribblePane() {
+            @Override
+            public void onImageDataFromClient(int width, int height, int[] rgba) {
+                //layout.addComponent(new Label("Got an image ("+width+"x"+height+")!")); // XXX
+
+                StreamResource.StreamSource imageSource = new RGBImageSource(width, height, rgba);
+                StreamResource resource = new StreamResource(imageSource, "image-"+width+"x"+height+".png");
+                Image image = new Image("("+width+"x"+height + ") - " + new Date(), resource);
+                layout.addComponent(image);
+                layout.setComponentAlignment(image, Alignment.TOP_CENTER);
+            }
+        };
 
         // Show it in the middle of the screen
-        final VerticalLayout layout = new VerticalLayout();
         layout.setStyleName("demoContentLayout");
-        layout.setSizeFull();
+        //layout.setSizeFull();
         layout.setMargin(false);
         layout.setSpacing(false);
-        layout.addComponent(component);
-        layout.setComponentAlignment(component, Alignment.MIDDLE_CENTER);
+
+        layout.addComponent(scribblePane);
+
+        Button snapButton = new Button("Snapshot!", clickEvent -> scribblePane.requestImageFromClient());
+        Button clearButton = new Button ("Clear!", clickEvent -> scribblePane.clearImage());
+
+        layout.addComponent(hl);
+        hl.addComponent(snapButton);
+        hl.addComponent(clearButton);
+        hl.setComponentAlignment(snapButton, Alignment.TOP_CENTER);
+        hl.setComponentAlignment(clearButton, Alignment.TOP_CENTER);
+
+        layout.setComponentAlignment(scribblePane, Alignment.MIDDLE_CENTER);
+        layout.setComponentAlignment(hl, Alignment.TOP_CENTER);
+
         setContent(layout);
     }
 }

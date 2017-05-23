@@ -2,6 +2,7 @@ package com.infraleap.vaadin.scribble.client;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
+import com.google.gwt.canvas.dom.client.ImageData;
 import com.google.gwt.user.client.ui.SimplePanel;
 
 public class ScribblePaneWidget extends SimplePanel {
@@ -26,11 +27,12 @@ public class ScribblePaneWidget extends SimplePanel {
 
     private Point lastPoint = new Point(0, 0);
     private boolean mouseDown = false;
+    private final Canvas canvas = Canvas.createIfSupported();
 
     public ScribblePaneWidget() {
         setStyleName("scribblepane");
 
-        Canvas canvas = Canvas.createIfSupported();
+        //Canvas canvas = Canvas.createIfSupported();
         if (canvas != null) {
             canvas.addMouseDownHandler(e -> {
                 mouseDown = true;
@@ -57,4 +59,13 @@ public class ScribblePaneWidget extends SimplePanel {
         // State is set to widget in ScribblePaneConnector
     }
 
+    ImageData getImageData(){
+        Context2d context = canvas.getContext2d();
+        return context.getImageData(0,0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
+    }
+
+    void clearImage(){
+        Context2d context = canvas.getContext2d();
+        context.clearRect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
+    }
 }

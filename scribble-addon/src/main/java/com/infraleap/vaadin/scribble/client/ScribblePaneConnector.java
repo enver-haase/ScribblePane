@@ -1,12 +1,11 @@
 package com.infraleap.vaadin.scribble.client;
 
-import com.google.gwt.user.client.Window;
+import com.google.gwt.canvas.dom.client.CanvasPixelArray;
+import com.google.gwt.canvas.dom.client.ImageData;
 import com.infraleap.vaadin.scribble.ScribblePane;
-import com.vaadin.client.MouseEventDetailsBuilder;
-import com.vaadin.client.communication.RpcProxy;
+//import com.vaadin.client.communication.RpcProxy;
 import com.vaadin.client.communication.StateChangeEvent;
 import com.vaadin.client.ui.AbstractComponentConnector;
-import com.vaadin.shared.MouseEventDetails;
 import com.vaadin.shared.ui.Connect;
 
 // Connector binds client-side widget class to server-side component class
@@ -22,23 +21,32 @@ public class ScribblePaneConnector extends AbstractComponentConnector {
 	
 	// ServerRpc is used to send events to server. Communication implementation
     // is automatically created here
-    ScribblePaneServerRpc rpc = RpcProxy.create(ScribblePaneServerRpc.class, this);
+    //ScribblePaneServerRpc rpc = RpcProxy.create(ScribblePaneServerRpc.class, this);
 
     public ScribblePaneConnector() {
         
         // To receive RPC events from server, we register ClientRpc implementation 
-        registerRpc(ScribblePaneClientRpc.class, Window::alert);
+        registerRpc(ScribblePaneClientRpc.class, new ScribblePaneClientRpc() {
+            @Override
+            public void sendImage() {
+                ScribblePaneWidget pane = getWidget();
+                ImageData imageData = pane.getImageData();
+                CanvasPixelArray arr = imageData.getData();
+                int[] data = new int[arr.getLength()];
+                for (int i=0; i<data.length; i++){
+                    data[i] = arr.get(i);
+                }
 
-        // We choose listed for mouse clicks for the widget
-//        getWidget().addClickHandler(event -> {
-//                final MouseEventDetails mouseDetails = MouseEventDetailsBuilder
-//                        .buildMouseEventDetails(event.getNativeEvent(),
-//                                getWidget().getElement());
-//                
-//                // When the widget is clicked, the event is sent to server with ServerRpc
-//                rpc.clicked(mouseDetails);
-//            }
-//        );
+                getRpcProxy(ScribblePaneServerRpc.class).imageData(imageData.getWidth(), imageData.getHeight(), data);
+            }
+
+            @Override
+            public void clearImage() {
+                getWidget().clearImage();
+            }
+
+
+        });
 
     }
 
@@ -61,7 +69,5 @@ public class ScribblePaneConnector extends AbstractComponentConnector {
         super.onStateChanged(stateChangeEvent);
 
         // State is directly readable in the client after it is set in server
-        final String text = getState().text;
-        //getWidget().setText(text);
     }
 }

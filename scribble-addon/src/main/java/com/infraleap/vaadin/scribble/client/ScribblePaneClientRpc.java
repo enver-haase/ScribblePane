@@ -6,7 +6,13 @@ import com.vaadin.shared.communication.ClientRpc;
 // For sending information about the changes to component state, use State instead
 public interface ScribblePaneClientRpc extends ClientRpc {
 
-    // Example API: Fire up alert box in client
-    public void alert(String message);
+    /**
+     * Tells the widget to upload its image data to the server.
+     */
+    void sendImage();
 
+    /**
+     * Tells the widget to clear its image.
+     */
+    void clearImage();
 }
