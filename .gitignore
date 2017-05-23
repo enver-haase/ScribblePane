@@ -1,4 +1,15 @@
-
 /.classpath
 /.project
 /scribble-root.iml
+/scribble-demo/.classpath
+/scribble-demo/.project
+/scribble-demo/scribble-demo.iml
+/scribble-addon/.project
+/scribble-addon/scribble.iml
+/scribble-addon/.classpath
+.idea/
+.settings/
+bin/
+scribble-addon/target/
+scribble-demo/src/test/
+scribble-demo/target/
