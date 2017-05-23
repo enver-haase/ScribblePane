@@ -10,8 +10,11 @@ Official releases of this add-on are available at Vaadin Directory. For Maven in
 ## Building and running demo
 
 git clone https://github.com/enver-haase/ScribblePane.git
+
 mvn clean install
+
 cd scribble-demo
+
 mvn jetty:run
 
 To see the demo, navigate to http://localhost:8080/
