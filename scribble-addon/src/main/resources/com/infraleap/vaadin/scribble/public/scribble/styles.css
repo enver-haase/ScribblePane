@@ -1,7 +1,13 @@
-div.scribble {
-	cursor: pointer;
+
+div.scribblepane {
+    border: 2px solid black;
+    background-color: beige;
 	user-select: none;
 	-webkit-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
+}
+
+*:focus {
+    outline: none !important;
 }

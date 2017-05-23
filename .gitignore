@@ -13,3 +13,5 @@ bin/
 scribble-addon/target/
 scribble-demo/src/test/
 scribble-demo/target/
+scribble-demo/src/main/webapp/VAADIN/themes/demo/styles.scss.cache
+scribble-demo/src/main/webapp/VAADIN/themes/demo/styles.css
