@@ -1,3 +1,6 @@
+[![Published on Vaadin  Directory](https://img.shields.io/badge/Vaadin%20Directory-published-00b4f0.svg)](https://vaadin.com/directory/component/scribblepane-add-on)
+[![Stars on Vaadin Directory](https://img.shields.io/vaadin-directory/star/scribblepane-add-on.svg)](https://vaadin.com/directory/component/scribblepane-add-on)
+
 # ScribblePane Add-on for Vaadin 8
 
 ScribblePane is a UI component add-on for Vaadin 8.
