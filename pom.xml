@@ -5,7 +5,7 @@
 	<groupId>com.infraleap.vaadin</groupId>
 	<artifactId>scribble-root</artifactId>
 	<packaging>pom</packaging>
-	<version>0.8</version>
+	<version>1.0</version>
 	<name>ScribblePane Add-on Root Project</name>
 
 	<prerequisites>
